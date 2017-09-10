@@ -52,13 +52,16 @@ class VPNGate:
     def grab_csv(self):
         """grabs the csv from the vpngate website"""
         print "grabbing VPNGate CSV from : " + self.URL
-        with requests.Session() as s:
-            download = s.get(self.URL)
-            decoded_content = download.content.decode('utf-8')
-            fh = open(".cache/vpndata.csv", "wb")
-            fh.write(decoded_content)
-            fh.close()
-        print "grabbed CSV"
+        try:
+            with requests.Session() as s:
+                download = s.get(self.URL)
+                decoded_content = download.content.decode('utf-8')
+                fh = open(".cache/vpndata.csv", "wb")
+                fh.write(decoded_content)
+                fh.close()
+            print "grabbed CSV"
+        except:
+            print "[!ERROR] There was a problem fetching the data from vpngate.net\r\n"
         return
 
 
