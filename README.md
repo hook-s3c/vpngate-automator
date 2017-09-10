@@ -11,6 +11,9 @@ You need a VPN if you want to keep prying eyes away from your network traffic - 
 Use this script to grab a free VPN from vpngate.net
 
 ```
+git clone https://github.com/hook-s3c/vpngate-automator.git
+cd vpngate-automator
+sudo chmod +x ./fetchvpn.py
 ./fetchvpns.py
 ```
 
@@ -25,12 +28,12 @@ apt-get install openvpn
 ## Breakdown
 
 1. initial load will pull down the CSV, parse and output it to the console
-- you will be asked which country shortcode to filter by
-- after choosing a country shortcode, you will then be presented with the filtered results
-- the program will then ask you to choose a VPN config by the identifier in the first column
-- choose an identifier and the program will create the OpenVPN config file in ./.vpnconfigs/ 
-- it will then run the openvpn client with escalated privilges and you will now be tunneled to another country
-- profit!
+2. you will be asked which country shortcode to filter by
+3. after choosing a country shortcode, you will then be presented with the filtered results
+4. the program will then ask you to choose a VPN config by the identifier in the first column
+5. choose an identifier and the program will create the OpenVPN config file in ./.vpnconfigs/ 
+6. it will then run the openvpn client with escalated privilges and you will now be tunneled to another country
+7. profit!
 
 ## Roadmap
 
