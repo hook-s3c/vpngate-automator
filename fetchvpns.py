@@ -13,7 +13,6 @@ MISSING = object()
 
 class VPNGate:
 
-
     def __init__(self, URL):
         self.URL = URL
         #super(VPNGate, self).__init__()
@@ -59,8 +58,6 @@ class VPNGate:
             fh = open(".cache/vpndata.csv", "wb")
             fh.write(decoded_content)
             fh.close()
-
-
         print "grabbed CSV"
         return
 
@@ -77,26 +74,23 @@ class VPNGate:
         global cr, MISSING, file_handle
         file_handle = open(".cache/vpndata.csv", "r")
         cr = csv.reader(file_handle, delimiter=',')
-
-        cr.next()
         for utf8_row in cr:
             (a) = utf8_row[:-1]
             if len(a) != 0:
-                #print a
-                #unicode_row = [x.decode('utf-8') for x in utf8_row]
-                #print utf8_row
                 if chosenCountryShortCodeArg is MISSING:
                      print('{:<20} {:<20} {:<10} {:<10} {:<10} {:<40} {:<10}'.format(*a))
                 else:
                     if a[6] == chosenCountryShortCodeArg:
                         print('{:<20} {:<20} {:<10} {:<10} {:<10} {:<40} {:<10}'.format(*a))
-        #print cr[1]
         return
 
 def main():
+
     vpngate = VPNGate(CSV_URL)
+
     vpngate.grab_csv()
     vpngate.parse_csv()
+
     print "\r\n"
     print "----------------------------------"
     var = raw_input("Now choose a country shortcode you sonofabitch: ")
@@ -106,13 +100,13 @@ def main():
 
     print "\r\n"
     print "----------------------------------"
-    var2 = raw_input("Give me a VPN name and let's go: ")
-    print "you entered:", var2, ""
+    vpnidentifier = raw_input("Give me a VPN name and let's go: ")
+    print "you entered:", vpnidentifier, ""
     print "\r\n"
 
-    vpndata = vpngate.grab_vpndata(var2)
-    vpngate.write_openvpn_file(vpndata,var2)
-    vpngate.run_ovpn_config(".vpnconfigs/vpnconfig_"+ var2 +".ovpn")
+    vpndata = vpngate.grab_vpndata(vpnidentifier)
+    vpngate.write_openvpn_file(vpndata,vpnidentifier)
+    vpngate.run_ovpn_config(".vpnconfigs/vpnconfig_"+ vpnidentifier +".ovpn")
 
 if __name__ == '__main__':
     main()
