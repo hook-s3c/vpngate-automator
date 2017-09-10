@@ -10,6 +10,7 @@ You need a VPN if you want to keep prying eyes away from your network traffic - 
 
 Use this script to grab a free VPN from vpngate.net
 
+## Quickstart
 ```
 git clone https://github.com/hook-s3c/vpngate-automator.git
 cd vpngate-automator
@@ -19,7 +20,8 @@ sudo chmod +x ./fetchvpn.py
 
 ## Requirements
 
-Should work on all Debian systems, tested on Ubuntu 16.04
+Should work on all Debian systems, tested on Ubuntu 16.04.
+You will neeed to install OpenVPN on your system.
 
 ```
 apt-get install openvpn
@@ -32,7 +34,7 @@ apt-get install openvpn
 3. after choosing a country shortcode, you will then be presented with the filtered results
 4. the program will then ask you to choose a VPN config by the identifier in the first column
 5. choose an identifier and the program will create the OpenVPN config file in ./.vpnconfigs/ 
-6. it will then run the openvpn client with escalated privilges and you will now be tunneled to another country
+6. it will then run the openvpn client with escalated privileges and you will now be tunnelled to another country
 7. profit!
 
 ## Roadmap
