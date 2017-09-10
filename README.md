@@ -40,6 +40,8 @@ apt-get install python-notify
 
 ## Roadmap
 
+- dockerize to alpine container
+- export ufw rules
 - sort the list by score
 - format the data in the columns to something more meaningful
 - refactor user input to allow adjustments of filters
