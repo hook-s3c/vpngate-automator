@@ -25,6 +25,7 @@ You will neeed to install OpenVPN on your system.
 
 ```
 apt-get install openvpn
+apt-get install python-notify
 ```
 
 ## Breakdown
