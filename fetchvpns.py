@@ -6,6 +6,7 @@ import pynotify
 import subprocess
 import sys
 import time
+import os
 
 CSV_URL = 'http://www.vpngate.net/api/iphone/'
 cr = None
@@ -26,7 +27,17 @@ class VPNGate:
         return
 
     def write_openvpn_file(self,b64ovpndata, vpnname):
-        fh = open(".vpnconfigs/vpnconfig_"+ vpnname +".ovpn", "wb")
+
+	openvpnconfigpath = ".vpnconfigs/vpnconfig_"+ vpnname +".ovpn"
+
+	if not os.path.exists(os.path.dirname(openvpnconfigpath)):
+	    try:
+		os.makedirs(os.path.dirname(openvpnconfigpath))
+	    except OSError as exc: # Guard against race condition
+		if exc.errno != errno.EEXIST:
+		    raise
+
+        fh = open(openvpnconfigpath, "wb")
         fh.write(b64ovpndata.decode('base64'))
         fh.write('\nscript-security 2\nup /etc/openvpn/update-resolv-conf\ndown /etc/openvpn/update-resolv-conf')
         fh.close()
@@ -51,12 +62,22 @@ class VPNGate:
 
     def grab_csv(self):
         """grabs the csv from the vpngate website"""
-        print "grabbing VPNGate CSV from : " + self.URL
+        print "grabbing VPNGate CSV from : " + self.URL + ", this may take a minute..."
+	print "ctrl+c if you already have a cached list"
         try:
             with requests.Session() as s:
+		csvdatapath = ".cache/vpndata.csv"
+
+		if not os.path.exists(os.path.dirname(csvdatapath)):
+		    try:
+			os.makedirs(os.path.dirname(csvdatapath))
+		    except OSError as exc: # Guard against race condition
+			if exc.errno != errno.EEXIST:
+			    raise
+
                 download = s.get(self.URL)
                 decoded_content = download.content.decode('utf-8')
-                fh = open(".cache/vpndata.csv", "wb")
+                fh = open(csvdatapath, "wb")
                 fh.write(decoded_content)
                 fh.close()
             print "grabbed CSV"
@@ -104,7 +125,7 @@ def main():
     print "\r\n"
     print "----------------------------------"
     vpnidentifier = raw_input("Give me a VPN name and let's go: ")
-    print "you entered:", vpnidentifier, ""
+    print "you entered:", vpnidentifier
     print "\r\n"
 
     vpndata = vpngate.grab_vpndata(vpnidentifier)
