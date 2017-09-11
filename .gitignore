@@ -2,3 +2,4 @@
 .vpnconfigs
 .ropeproject
 tags
+*.pyc
