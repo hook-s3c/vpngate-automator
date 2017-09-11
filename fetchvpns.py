@@ -117,10 +117,10 @@ def main():
 
     print "\r\n"
     print "----------------------------------"
-    var = raw_input("Now choose a country shortcode you sonofabitch: ")
-    print "you entered:", var, "and I'm searching..."
+    countryshortcode = raw_input("Now choose a country shortcode you sonofabitch: ")
+    print "you entered:", countryshortcode, "and I'm searching..."
     print "\r\n"
-    vpngate.parse_csv(var)
+    vpngate.parse_csv(countryshortcode)
 
     print "\r\n"
     print "----------------------------------"
