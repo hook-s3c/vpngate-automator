@@ -1,13 +1,13 @@
 #!/usr/bin/env python
 
-from classes.vpngate import VPNGate
+from classes.vpngate import VPNGateApp
 
 
 CSV_URL = 'http://www.vpngate.net/api/iphone/'
 
 def main():
 
-    vpngate = VPNGate(CSV_URL)
+    vpngate = VPNGateApp(CSV_URL)
 
     vpngate.grab_csv()
     vpngate.parse_csv()
