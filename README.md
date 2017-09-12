@@ -15,6 +15,8 @@ Use this script to grab a free VPN from vpngate.net
 git clone https://github.com/hook-s3c/vpngate-automator.git
 cd vpngate-automator
 sudo chmod +x ./fetchvpn.py
+pip install -r ./requirements.txt
+
 ./fetchvpns.py
 ```
 
@@ -28,6 +30,7 @@ apt-get install openvpn
 apt-get install python-notify
 ```
 
+
 ## Breakdown
 
 1. initial load will pull down the CSV, parse and output it to the console
@@ -38,22 +41,53 @@ apt-get install python-notify
 6. it will then run the openvpn client with escalated privileges and you will now be tunnelled to another country
 7. profit!
 
+## Consider a firewall (optional)
+
+After investing some time in Wireshark, I noticed that some traffic liked to leak outside of the VPN - this part will help close this down.
+
+This script will automatically generate a UFW profile from a template found in `./templates/`.
+
+- export ufw rules
+- helpful output to explain which iptables/firewall rules to import
+
+```
+apt-get install ufw
+apt-get install gufw
+```
+
+### Steps
+
+1. Run script with optional firewall paramter `--firewall`
+2. Open GUFW 
+3. change permissions on file;
+ `sudo chmod 0600 ./templates/output/ufwrules.profile`
+3. `file > import profile`
+4. choose ufwrules from dropdown
+5. press enter to launch the VPN
+
+--------------------------------------------------------------------------------------------
+
 ## Roadmap
 
+must have;
+- add firewall configuration (see above)
+should have;
+- allow mirrors for CSV URL
+could have;
+- abstract configuration
 - dockerize to alpine container
-- export ufw rules
-- sort the list by score
 - format the data in the columns to something more meaningful
+- filter base64 output for UDP/TCP and port
 - refactor user input to allow adjustments of filters
-- filter base64 output for UDP/TCP and port 
 - command line arguments (country/filters, auto-start) to just get going
-- helpful output to explain which iptables/firewall rules to import
+- unit tests
 
 ## Notes
 
 This is one of my first python scripts as I learn, so some parts may look hella ugly.
 
-There is no support, fork/PR as you wish.
+There is no support, fork/PR as you wish. 
+MIT license, so attribution is mandatory.
 
 Support for notifications in the gnome interface.
 
@@ -71,6 +105,17 @@ Here are some links to some bits I had to pull together, when I had no clue of t
 - https://evanhahn.com/python-skip-header-csv-reader/
 - https://stackoverflow.com/questions/24659006/unpack-only-the-first-few-columns-from-the-csv-reader
 - https://stackoverflow.com/questions/19143667/how-to-read-a-csv-without-the-first-column
+- https://stackoverflow.com/questions/107405/how-do-you-send-a-head-http-request-in-python-2/2070916#2070916
 - https://stackoverflow.com/questions/39176935/formatting-output-of-csv-file-in-python
 - https://stackoverflow.com/questions/2100353/sort-csv-by-column
 - https://stackoverflow.com/questions/12517451/automatically-creating-directories-with-file-output
+python static methods;
+- https://stackoverflow.com/questions/11759269/calling-static-method-in-python
+inetfaces;
+- https://stackoverflow.com/questions/30698521/python-netifaces-how-to-get-currently-used-network-interface
+clint lib;
+- https://github.com/kennethreitz/clint
+working with requirements;
+- https://stackoverflow.com/questions/7225900/how-to-pip-install-packages-according-to-requirements-txt-from-a-local-directory
+replacing strings in files;
+- https://stackoverflow.com/questions/4128144/replace-string-within-file-contents

@@ -1,0 +1,96 @@
+[fwBasic]
+status = enabled
+incoming = deny
+outgoing = deny
+routed = disabled
+
+[Rule0]
+ufw_rule = 80,443/tcp ALLOW OUT Anywhere on tun0 (log-all, out)
+description = web
+command = /usr/sbin/ufw allow out on tun0 log-all proto tcp from any to any port 80,443
+policy = allow
+direction = out
+protocol = tcp
+from_ip = 
+from_port = 
+to_ip = 
+to_port = 80,443
+iface = tun0
+routed = 
+logging = log-all
+
+[Rule1]
+ufw_rule = 53/udp ALLOW OUT Anywhere on tun0 (log-all, out)
+description = DNS
+command = /usr/sbin/ufw allow out on tun0 log-all proto udp from any to any port 53
+policy = allow
+direction = out
+protocol = udp
+from_ip = 
+from_port = 
+to_ip = 
+to_port = 53
+iface = tun0
+routed = 
+logging = log-all
+
+[Rule2]
+ufw_rule = VPN_PORT/udp ALLOW OUT Anywhere on INTERFACE_NAME (log-all, out)
+description = openvpn
+command = /usr/sbin/ufw allow out on INTERFACE_NAME log-all proto VPN_PROTOCOL from any to any port VPN_PORT
+policy = allow
+direction = out
+protocol = VPN_PROTOCOL
+from_ip = 
+from_port = 
+to_ip = 
+to_port = VPN_PORT
+iface = INTERFACE_NAME
+routed = 
+logging = log-all
+
+[Rule3]
+ufw_rule = 80,443/tcp (v6) ALLOW OUT Anywhere (v6) on tun0 (log-all, out)
+description = web
+command = /usr/sbin/ufw allow out on tun0 log-all proto tcp from any to any port 80,443
+policy = allow
+direction = out
+protocol = tcp
+from_ip = 
+from_port = 
+to_ip = 
+to_port = 80,443
+iface = tun0
+routed = 
+logging = log-all
+
+[Rule4]
+ufw_rule = 53/udp (v6) ALLOW OUT Anywhere (v6) on tun0 (log-all, out)
+description = DNS
+command = /usr/sbin/ufw allow out on tun0 log-all proto udp from any to any port 53
+policy = allow
+direction = out
+protocol = udp
+from_ip = 
+from_port = 
+to_ip = 
+to_port = 53
+iface = tun0
+routed = 
+logging = log-all
+
+[Rule5]
+ufw_rule = VPN_PORT/udp (v6) ALLOW OUT Anywhere (v6) on INTERFACE_NAME (log-all, out)
+description = openvpn
+command = /usr/sbin/ufw allow out on INTERFACE_NAME log-all proto VPN_PROTOCOL from any to any port VPN_PORT
+policy = allow
+direction = out
+protocol = VPN_PROTOCOL
+from_ip = 
+from_port = 
+to_ip = 
+to_port = VPN_PORT
+iface = INTERFACE_NAME
+routed = 
+logging = log-all
+
