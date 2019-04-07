@@ -14,7 +14,7 @@ Use this script to grab a free VPN from vpngate.net
 ```
 git clone https://github.com/hook-s3c/vpngate-automator.git
 cd vpngate-automator
-sudo chmod +x ./fetchvpn.py
+sudo chmod +x ./fetchvpns.py
 pip install -r ./requirements.txt
 
 ./fetchvpns.py
